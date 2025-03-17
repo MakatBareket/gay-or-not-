@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>בדיקת זהות רשמית</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            direction: rtl;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            width: 400px;
+            border: 2px solid #003087;
+        }
+        h1 {
+            color: #003087;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #003087;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #002366;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+        }
+        .success {
+            background-color: #e6f3ff;
+            border: 2px solid #003087;
+            color: #003087;
+        }
+        .normal {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>בדוק אם אתה גיי - טופס רשמי</h1>
+        <form id="checkForm" onsubmit="checkIdentity(event)">
+            <div class="form-group">
+                <label>שם פרטי:</label>
+                <input type="text" id="firstName" required>
+            </div>
+            <div class="form-group">
+                <label>שם משפחה:</label>
+                <input type="text" id="lastName" required>
+            </div>
+            <div class="form-group">
+                <label>תאריך לידה:</label>
+                <input type="date" id="birthDate" required>
+            </div>
+            <div class="form-group">
+                <label>3 ספרות ראשונות של תעודת זהות:</label>
+                <input type="text" id="idNumber" maxlength="3" pattern="[0-9]{3}" required>
+            </div>
+            <div class="form-group">
+                <label>עיר מגורים:</label>
+                <input type="text" id="city" required>
+            </div>
+            <button type="submit">בדוק תוצאה</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function checkIdentity(event) {
+            event.preventDefault();
+            
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const birthDate = document.getElementById('birthDate').value;
+            const idNumber = document.getElementById('idNumber').value;
+            const city = document.getElementById('city').value.trim();
+            const resultDiv = document.getElementById('result');
+
+            const specificMatch = 
+                firstName === 'יובל' &&
+                lastName === 'כספי' &&
+                birthDate === '1997-10-20' &&
+                idNumber === '209' &&
+                city === 'חיפה';
+
+            resultDiv.style.display = 'block';
+            
+            if (specificMatch) {
+                resultDiv.className = 'success';
+                resultDiv.innerHTML = 'יובל כספי ת.ז 209124288 הומו בוודאות';
+            } else {
+                resultDiv.className = 'normal';
+                resultDiv.innerHTML = `תוצאה: ${firstName} ${lastName} - הומו בוודאות 97%`;
+            }
+        }
+    </script>
+</body>
+</html>
