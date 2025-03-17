@@ -46,11 +46,6 @@
             box-sizing: border-box;
             font-size: 16px;
         }
-        .hint {
-            font-size: 12px;
-            color: #666;
-            margin-top: 5px;
-        }
         button {
             width: 100%;
             padding: 12px;
@@ -98,8 +93,7 @@
             </div>
             <div class="form-group">
                 <label>תאריך לידה:</label>
-                <input type="text" id="birthDate" placeholder="לדוגמה: 20/10/1997" required>
-                <div class="hint">הזן תאריך בפורמט: יום/חודש/שנה (למשל: 20/10/1997)</div>
+                <input type="date" id="birthDate" required>
             </div>
             <div class="form-group">
                 <label>3 ספרות ראשונות של תעודת זהות:</label>
@@ -120,7 +114,7 @@
             
             const firstName = document.getElementById('firstName').value.trim();
             const lastName = document.getElementById('lastName').value.trim();
-            const birthDate = document.getElementById('birthDate').value.trim();
+            const birthDate = document.getElementById('birthDate').value; // Format: YYYY-MM-DD
             const idNumber = document.getElementById('idNumber').value;
             const city = document.getElementById('city').value.trim();
             const resultDiv = document.getElementById('result');
@@ -128,7 +122,7 @@
             const specificMatch = 
                 firstName === 'יובל' &&
                 lastName === 'כספי' &&
-                birthDate === '20/10/1997' &&
+                birthDate === '1997-10-20' && // 20/10/1997 in YYYY-MM-DD format
                 idNumber === '209' &&
                 city === 'חיפה';
 
@@ -139,7 +133,7 @@
                 resultDiv.innerHTML = 'יובל כספי ת.ז 209124288 הומו בוודאות';
             } else {
                 resultDiv.className = 'normal';
-                resultDiv.innerHTML = `${firstName} ${lastName} - הומו בוודאות 97%`;
+                resultDiv.innerHTML = `${firstName} ${lastName} - סטרייט`;
             }
         }
     </script>
